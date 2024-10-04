@@ -10,7 +10,7 @@ const fileFilter = (req, file, cb) => {
 
 const upload = multer({
   storage: multer.diskStorage({
-    destination: './images/',
+    destination: './images',
     filename: (req, file, cb) => {
       cb(null, `${file.fieldname}-${Date.now()}${path.extname(file.originalname)}`);
     }

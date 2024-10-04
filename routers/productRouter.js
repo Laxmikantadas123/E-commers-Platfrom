@@ -7,6 +7,6 @@ const {addProduct,updateUpdate,deleteProduct}=require("../controllers/productCon
 router.post("/addpoduct",auth,admin,upload.single("image"),addProduct)
 router.put("/updateproduct/:id",auth,admin, upload.single("image"),updateUpdate)
 router.delete("/deleteproduct/:id",auth,admin,deleteProduct)
-router.get("alldata",auth,admin,)
+// router.get("alldata",auth,admin,)
 
 module.exports=router

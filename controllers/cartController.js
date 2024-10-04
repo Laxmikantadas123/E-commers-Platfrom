@@ -51,7 +51,7 @@ const removeProdutCart = asyncHandler(async (req, res) => {
     totalAmount: cart.totalAmount,
   });
 });
-const getCrat=asyncHandler(async (req,res)=>{
+const getCart=asyncHandler(async (req,res)=>{
     try {
         const userId=req.user.id
         const userInCart=await Cart.find({userId})
@@ -66,5 +66,5 @@ const getCrat=asyncHandler(async (req,res)=>{
 module.exports = {
   addCart,
   removeProdutCart,
-  getCrat
+  getCart
 };

@@ -1,4 +1,3 @@
-// const User = require("../models/userModel.js");
 const ApiError = require("../utils/ApiError.js");
 const asyncHandler = require("../utils/asyncHandler.js");
 const Product = require("../models/productModel.js");
@@ -7,9 +6,6 @@ const Product = require("../models/productModel.js");
 const addProduct = asyncHandler(async (req, res) => {
   try {
     const { title, description, price, category, quantity } = req.body;
-    if (!req.file) {
-      return res.status(400).json({ message: "No file uploaded" });
-    }
     if(!req.file){
       throw ApiError(400,"Image is is require")
     }
@@ -19,7 +15,7 @@ const addProduct = asyncHandler(async (req, res) => {
       price,
       category,
       quantity,
-      images: req.file
+      images: req.file.path
     });
     
     await newProduct.save();
@@ -32,19 +28,18 @@ const updateUpdate = asyncHandler(async (req, res) => {
   try {
     const id = req.params.id;
     if (!id) {
-      throw ApiError(404, "User is not Not found");
+      throw ApiError(404, "Product not found");
     }
     
     const updateData = {
       ...req.body,
     };
     if (req.file) {
-      updateData.image = req.file;
+      updateData.image = req.file.path;
     }
     const updateProduct = await Product.findByIdAndUpdate(id, updateData, {
       new: true,
     });
-    console.log(updateProduct);
 
     res.status(200).json(updateProduct);
   } catch (error) {
@@ -55,7 +50,7 @@ const deleteProduct = asyncHandler(async (req, res) => {
   try {
     const id = req.params.id;
     if (!id) {
-      throw ApiError(404, "User is not Not found");
+      throw ApiError(404, "Id is required");
     }
     const deleteProduct = await Product.findByIdAndDelete(id);
     res.status(200).json(deleteProduct);

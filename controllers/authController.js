@@ -49,7 +49,7 @@ const loginUser = asyncHandler(async (req, res) => {
     }
     const isCorrect = bcrypt.compare(password, user.password);
     if (!isCorrect) {
-      throw ApiError(400, "Password in correct");
+      throw ApiError(400, "Password is incorrect");
     }
     const token = JWT.sign({ id: user._id }, process.env.JWT_KEY);
     res.cookie("access_token", token, {
@@ -112,12 +112,12 @@ const updateUser = asyncHandler(async (req, res) => {
     if (!user) {
       throw ApiError(404, "User Not Found");
     }
-    const { firstname, lastname, email, mobile } = req.body;
+    const { firstname, lastname, email, mobile,password } = req.body;
     if (firstname) user.firstname = firstname;
     if (lastname) user.firstname = lastname;
     if (email) user.email = email;
     if (mobile) user.mobile = mobile;
-    //  if(password) user.password=password
+    if(password) user.password=password
     await user.save();
     res.status(200).json(user);
   } catch (error) {

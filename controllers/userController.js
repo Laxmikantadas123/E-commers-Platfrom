@@ -14,6 +14,7 @@ const getAllproduct = asyncHandler(async (req, res) => {
     throw ApiError(error.statusCode, error.message);
   }
 });
+
 const getProduct = asyncHandler(async (req, res) => {
   try {
     const id = req.params.id;

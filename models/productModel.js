@@ -16,14 +16,14 @@ const producSchema =mongoose.Schema(
     },
     category: {
       type: String,
-      enum: [
+      enum: [,
         "electronics",
         "fashion",
         "home and kitchen",
         "beauty and personal care",
         "baby and kids"
       ],
-      default: "dress",
+      default: "fashion",
       required: true,
     },
     quantity: {
