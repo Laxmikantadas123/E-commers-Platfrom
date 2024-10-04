@@ -37,7 +37,11 @@
 
 -After the user signUp it can  Login  when user login by the help of email/mobile and password it's generate token and save it in cookie.<br>
 
--if user is admin then this user can add your won product for selling it can also delete the product and update the product.<br>
+-if user is admin then this user can add your won product for selling it can also delete the product and update the product normal user can't do this .<br>
+
+-user can add the product in cart and delete <br>
+
+-user can rating the product and comment this
 
 
 
