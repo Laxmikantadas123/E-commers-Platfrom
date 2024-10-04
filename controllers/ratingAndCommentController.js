@@ -1,6 +1,5 @@
 const User = require("../models/userModel.js");
 const ApiError = require("../utils/ApiError.js");
-const uploadOnCloudinary = require("../utils/cloudinary.js");
 const asyncHandler = require("../utils/asyncHandler.js");
 const Product = require("../models/productModel.js");
 const RatingAndComment=require("../models/ratingAndcommentModel.js")

@@ -1,6 +1,5 @@
-const User = require("../models/userModel.js");
+// const User = require("../models/userModel.js");
 const ApiError = require("../utils/ApiError.js");
-const uploadOnCloudinary = require("../utils/cloudinary.js");
 const asyncHandler = require("../utils/asyncHandler.js");
 const Product = require("../models/productModel.js");
 
@@ -11,15 +10,16 @@ const addProduct = asyncHandler(async (req, res) => {
     if (!req.file) {
       return res.status(400).json({ message: "No file uploaded" });
     }
-    const cloudinaryResponse = await uploadOnCloudinary(req.file.buffer);
-
+    if(!req.file){
+      throw ApiError(400,"Image is is require")
+    }
     const newProduct = new Product({
       title,
       description,
       price,
       category,
       quantity,
-      images: cloudinaryResponse.secure_url,
+      images: req.file
     });
     
     await newProduct.save();
@@ -34,18 +34,12 @@ const updateUpdate = asyncHandler(async (req, res) => {
     if (!id) {
       throw ApiError(404, "User is not Not found");
     }
-    if (req.file) {
-      const cloudinaryResponse = await uploadOnCloudinary(req.file.buffer);
-
-      if (cloudinaryResponse) {
-        imageUrl = cloudinaryResponse.secure_url;
-      }
-    }
+    
     const updateData = {
       ...req.body,
     };
-    if (imageUrl) {
-      updateData.image = imageUrl;
+    if (req.file) {
+      updateData.image = req.file;
     }
     const updateProduct = await Product.findByIdAndUpdate(id, updateData, {
       new: true,
